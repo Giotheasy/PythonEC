@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import math
+
 plt.style.use('seaborn')
 data = pd.read_csv('../db/Table 1_1.csv', skiprows=7, header=1)
 y90 = data.Y1
