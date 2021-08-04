@@ -23,7 +23,7 @@ if s == "1.1a":
     plt.plot(data.Year, data.InfUK, marker='8', label='United Kingdom')
     plt.plot(data.Year, data.InfUS, marker='<', label='United States')
 elif s == '1.2a':
-    #plt.plot(data.Year, data.InfUS, marker='<', label='United States', linewidth=4)
+    # plt.plot(data.Year, data.InfUS, marker='<', label='United States', linewidth=4)
     print("Select the required graph (US vs ...)\n"
           "1. Canada\n"
           "2. France\n"
