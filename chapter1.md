@@ -9,6 +9,8 @@ base of the index.
 
 ```python
 import pandas as pd
+from bokeh.plotting import figure
+from bokeh.io import export_svg
 
 
 def inflation(df: pd.DataFrame):
@@ -19,10 +21,38 @@ def readData(path: str):
     return pd.read_csv(path, skiprows=1, header=0, sep=';', decimal=',', index_col=0)
 
 
-if __name__ == '__main__':
+def drawTable():
+    # Subsection 'a' table
     path: str = '../db/Table 1_3.csv'
     inf_df = inflation(readData(path))
     print(inf_df.to_markdown())
+    print(inf_df.describe().to_markdown())
+
+
+def plotInflation():
+    # Subsection 'b' plot
+    path: str = '../db/Table 1_3.csv'
+    inf_df: pd.DataFrame = inflation(readData(path))
+    plt = figure(plot_width=1920 // 3, plot_height=1080 // 3)
+    plt.line(x=inf_df.index, y=inf_df['USA'], legend_label='USA', line_color='blue')
+    plt.line(x=inf_df.index, y=inf_df['Canada'], legend_label='Canada', line_color='red')
+    plt.line(x=inf_df.index, y=inf_df['Japan'], legend_label='Japan', line_color='green')
+    plt.line(x=inf_df.index, y=inf_df['France'], legend_label='France', line_color='orange')
+    plt.line(x=inf_df.index, y=inf_df['Germany'], legend_label='Germany', line_color='purple')
+    plt.line(x=inf_df.index, y=inf_df['Italy'], legend_label='Italy', line_color='cyan')
+    plt.line(x=inf_df.index, y=inf_df['UK'], legend_label='UK', line_color='black')
+    export_svg(plt, filename='../img/img[1-1][1].svg')
+
+
+def drawStats():
+    # Subsection 'c' table
+    path: str = '../db/Table 1_3.csv'
+    inf_df = inflation(readData(path))
+    print(inf_df.describe().to_markdown())
+
+
+if __name__ == '__main__':
+    drawStats()
 ```
 
 a. From the given data, compute the inflation rate for each country
@@ -64,9 +94,23 @@ axis for the inflation rate)
 
 c. What broad conclusions can you draw about the inflation experience in the seven countries?
 
+During the 1980s, inflation generally decreased in the selected countries. In the late 1980s and early 1990s, inflation
+increased again but not to the same level as in the 1980s. Later, inflation tended to decline.
+
 d. Which country's inflation rate seems to be the most variable? Can you offer any explanation?
 
-En lo siguiente se mostrara como se muestran las muestras
+It is not possible to know which inflation rate is the highest among the countries without performing a variance
+analysis.
 
+|       |      USA |   Canada |      Japan |    France |    Germany |    Italy |       UK |
+|:------|---------:|---------:|-----------:|----------:|-----------:|---------:|---------:|
+| count | 25       | 25       | 25         | 25        | 25         | 25       | 25       |
+| mean  |  3.52689 |  3.65129 |  1.06992   |  3.60796  |  2.32858   |  5.9374  |  4.34481 |
+| std   |  1.8097  |  2.84741 |  1.49141   |  3.40186  |  1.60363   |  4.69663 |  2.65462 |
+| min   |  1.55763 |  0.20284 | -0.915903  |  0.518807 | -0.0954198 |  1.66292 |  1.51515 |
+| 25%   |  2.56055 |  1.7894  | -0.0838223 |  1.70288  |  1.3346    |  2.66066 |  2.82589 |
+| 50%   |  3.01028 |  2.74143 |  0.671785  |  2.15957  |  1.92308   |  4.59144 |  3.42034 |
+| 75%   |  4.13732 |  4.31718 |  2.05681   |  3.3411   |  2.74725   |  6.39098 |  5.01002 |
+| max   | 10.3155  | 12.4836  |  4.84048   | 13.278    |  6.34371   | 19.3038  | 11.9745  |
 
-
+Analyzing the statistics from the inflation table, Italy is the country with the greatest variation.

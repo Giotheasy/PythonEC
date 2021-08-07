@@ -19,17 +19,16 @@ def showTable(df: pd.DataFrame):
     show(dataTable)
 
 
-def plotInflation():
-    pass
-
-
-def index_a():
+def drawTable():
+    # Subsection 'a' table
     path: str = '../db/Table 1_3.csv'
     inf_df = inflation(readData(path))
     print(inf_df.to_markdown())
+    print(inf_df.describe().to_markdown())
 
 
-if __name__ == '__main__':
+def plotInflation():
+    # Subsection 'b' plot
     path: str = '../db/Table 1_3.csv'
     inf_df: pd.DataFrame = inflation(readData(path))
     plt = figure(plot_width=1920 // 3, plot_height=1080 // 3)
@@ -41,4 +40,13 @@ if __name__ == '__main__':
     plt.line(x=inf_df.index, y=inf_df['Italy'], legend_label='Italy', line_color='cyan')
     plt.line(x=inf_df.index, y=inf_df['UK'], legend_label='UK', line_color='black')
     export_svg(plt, filename='../img/img[1-1][1].svg')
-    # res_df = (df - df.iloc[5]) / df.iloc[5]
+
+def drawStats():
+    # Subsection 'c' table
+    path: str = '../db/Table 1_3.csv'
+    inf_df = inflation(readData(path))
+    print(inf_df.describe().to_markdown())
+
+
+if __name__ == '__main__':
+    drawStats()
