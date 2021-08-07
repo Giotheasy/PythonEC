@@ -60,12 +60,11 @@ a. From the given data, compute the inflation rate for each country
 
 b. Plot the inflation rate for each country against the time (i.e., use the horizontal axis for time and the vertical
 axis for the inflation rate)
+![alt_text](img/img%5B1-1%5D%5B1%5D.svg "Inflation Plot")
 
 c. What broad conclusions can you draw about the inflation experience in the seven countries?
 
 d. Which country's inflation rate seems to be the most variable? Can you offer any explanation?
-
-![alt text](img/img1.png "IMAGE 1")
 
 En lo siguiente se mostrara como se muestran las muestras
 
