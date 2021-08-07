@@ -1,8 +1,8 @@
-## Chapter 1
+# Chapter 1
 
 ***
 
-### Exercise 1.1
+## Exercise 1.1
 
 Table 1.3 gives data on the Consumer Price Index (CPI) for seven industrialized countries with 1982-1984 = 100 as the
 base of the index.
@@ -45,17 +45,19 @@ def plotInflation():
 
 
 def drawStats():
-    # Subsection 'c' table
+    # Subsection 'd' table
     path: str = '../db/Table 1_3.csv'
     inf_df = inflation(readData(path))
     print(inf_df.describe().to_markdown())
 
 
 if __name__ == '__main__':
+    drawTable()
+    plotInflation()
     drawStats()
 ```
 
-a. From the given data, compute the inflation rate for each country
+#### a. From the given data, compute the inflation rate for each country
 
 ### Inflation (Percentage)
 
@@ -88,16 +90,16 @@ a. From the given data, compute the inflation rate for each country
 | 2004 |   2.66304 |   1.85706  |   0         |   2.15957  |   1.68577   |   2.19298 |   3.00469 |
 | 2005 |   3.38804 |   2.1547   |  -0.336984  |   1.70288  |   1.92308   |   1.95084 |   2.82589 |
 
-b. Plot the inflation rate for each country against the time (i.e., use the horizontal axis for time and the vertical
-axis for the inflation rate)
+#### b. Plot the inflation rate for each country against the time (i.e., use the horizontal axis for time and the vertical axis for the inflation rate)
+
 ![alt_text](img/img%5B1-1%5D%5B1%5D.svg "Inflation Plot")
 
-c. What broad conclusions can you draw about the inflation experience in the seven countries?
+#### c. What broad conclusions can you draw about the inflation experience in the seven countries?
 
 During the 1980s, inflation generally decreased in the selected countries. In the late 1980s and early 1990s, inflation
 increased again but not to the same level as in the 1980s. Later, inflation tended to decline.
 
-d. Which country's inflation rate seems to be the most variable? Can you offer any explanation?
+#### d. Which country's inflation rate seems to be the most variable? Can you offer any explanation?
 
 It is not possible to know which inflation rate is the highest among the countries without performing a variance
 analysis.
@@ -114,3 +116,52 @@ analysis.
 | max   | 10.3155  | 12.4836  |  4.84048   | 13.278    |  6.34371   | 19.3038  | 11.9745  |
 
 Analyzing the statistics from the inflation table, Italy is the country with the greatest variation.
+
+## Exercise 1.2
+
+```python
+import pandas as pd
+from bokeh.plotting import figure
+from bokeh.io import export_svg
+
+
+def inflation(df: pd.DataFrame):
+    return df.pct_change() * 100
+
+
+def readData(path: str):
+    return pd.read_csv(path, skiprows=1, header=0, sep=';', decimal=',', index_col=0)
+
+
+def plotInflation():
+    # Subsection 'b' plot
+    path: str = '../db/Table 1_3.csv'
+    inf_df: pd.DataFrame = inflation(readData(path))
+    plt = figure(plot_width=1920 // 3, plot_height=1080 // 3)
+    plt.line(x=inf_df.index, y=inf_df['USA'], legend_label='USA', line_color='blue', line_width=5)
+    plt.line(x=inf_df.index, y=inf_df['Canada'], legend_label='Canada', line_color='red')
+    plt.line(x=inf_df.index, y=inf_df['Japan'], legend_label='Japan', line_color='green')
+    plt.line(x=inf_df.index, y=inf_df['France'], legend_label='France', line_color='orange')
+    plt.line(x=inf_df.index, y=inf_df['Germany'], legend_label='Germany', line_color='purple')
+    plt.line(x=inf_df.index, y=inf_df['Italy'], legend_label='Italy', line_color='cyan')
+    plt.line(x=inf_df.index, y=inf_df['UK'], legend_label='UK', line_color='black')
+    export_svg(plt, filename='../img/img[1-2][1].svg')
+
+
+if __name__ == '__main__':
+    plotInflation()
+
+```
+
+#### a. Using Table 1.3, plot the inflation rate of Canada, France, Germany, Italy, Japan, and the United Kingdowm against the United States inflation rate.
+
+![alt_text](img/img%5B1-2%5D%5B1%5D.svg "Inflation Plot")
+
+#### b. Comment generally about the behavior of the inflation rate in the six countries vis-a-vis the U.S. inflation rate
+
+The behavior of the inflation rate of the other countries is similar to the inflation rate of USA.
+
+#### c. If you find that the six countries inflation rates move in the same direction as the U.S. inflation rate, would that suggest that U.S. inflation "causes" inflation in the other countries? Why or why not?
+
+There may be a percentage caused directly by US inflation, however it cannot be said that US inflation alone causes
+inflation in the rest of the countries.
