@@ -93,7 +93,6 @@ if __name__ == '__main__':
 #### b. Plot the inflation rate for each country against the time (i.e., use the horizontal axis for time and the vertical axis for the inflation rate)
 
 ![alt_text](img/img%5B1-1%5D%5B1%5D.svg "Inflation Plot")
-
 #### c. What broad conclusions can you draw about the inflation experience in the seven countries?
 
 During the 1980s, inflation generally decreased in the selected countries. In the late 1980s and early 1990s, inflation
@@ -138,13 +137,13 @@ def plotInflation():
     path: str = '../db/Table 1_3.csv'
     inf_df: pd.DataFrame = inflation(readData(path))
     plt = figure(plot_width=1920 // 3, plot_height=1080 // 3)
-    plt.line(x=inf_df.index, y=inf_df['USA'], legend_label='USA', line_color='blue', line_width=5)
-    plt.line(x=inf_df.index, y=inf_df['Canada'], legend_label='Canada', line_color='red')
-    plt.line(x=inf_df.index, y=inf_df['Japan'], legend_label='Japan', line_color='green')
-    plt.line(x=inf_df.index, y=inf_df['France'], legend_label='France', line_color='orange')
-    plt.line(x=inf_df.index, y=inf_df['Germany'], legend_label='Germany', line_color='purple')
-    plt.line(x=inf_df.index, y=inf_df['Italy'], legend_label='Italy', line_color='cyan')
-    plt.line(x=inf_df.index, y=inf_df['UK'], legend_label='UK', line_color='black')
+    plt.line(x=inf_df.index, y=inf_df['USA'] - inf_df['USA'], legend_label='USA', line_color='blue', line_width=5)
+    plt.line(x=inf_df.index, y=inf_df['Canada'] - inf_df['USA'], legend_label='Canada', line_color='red')
+    plt.line(x=inf_df.index, y=inf_df['Japan'] - inf_df['USA'], legend_label='Japan', line_color='green')
+    plt.line(x=inf_df.index, y=inf_df['France'] - inf_df['USA'], legend_label='France', line_color='orange')
+    plt.line(x=inf_df.index, y=inf_df['Germany'] - inf_df['USA'], legend_label='Germany', line_color='purple')
+    plt.line(x=inf_df.index, y=inf_df['Italy'] - inf_df['USA'], legend_label='Italy', line_color='cyan')
+    plt.line(x=inf_df.index, y=inf_df['UK'] - inf_df['USA'], legend_label='UK', line_color='black')
     export_svg(plt, filename='../img/img[1-2][1].svg')
 
 
